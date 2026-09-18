@@ -1,0 +1,48 @@
+const { DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const { sequelize } = require('../config/database');
+
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  role: {
+    type: DataTypes.ENUM('admin', 'hr', 'employee'),
+    allowNull: false,
+    defaultValue: 'employee',
+  },
+}, {
+  tableName: 'users',
+  timestamps: true, // adds createdAt, updatedAt automatically
+});
+
+// Hash password automatically before saving a new user
+User.beforeCreate(async (user) => {
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
+});
+
+// Instance method to check a plain password against the hashed one
+User.prototype.comparePassword = function (plainPassword) {
+  return bcrypt.compare(plainPassword, this.password);
+};
+
+module.exports = User;
