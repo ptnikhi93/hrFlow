@@ -9,20 +9,20 @@ import { HealthService } from './core/services/health.service';
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  protected readonly title = signal('frontend');
-  backendStatus = signal('Checking...');
+  // protected readonly title = signal('frontend');
+  // backendStatus = signal('Checking...');
 
   constructor(private healthService: HealthService) {}
 
   ngOnInit(): void {
-    this.healthService.checkHealth().subscribe({
-      next: (res) => {
-        this.backendStatus.set(res.message);
-      },
-      error: (err) => {
-        this.backendStatus.set('Backend not reachable');
-        console.error(err);
-      }
-    });
+  //   this.healthService.checkHealth().subscribe({
+  //     next: (res) => {
+  //       this.backendStatus.set(res.message);
+  //     },
+  //     error: (err) => {
+  //       this.backendStatus.set('Backend not reachable');
+  //       console.error(err);
+  //     }
+  //   });
   }
 }
