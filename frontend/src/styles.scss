@@ -1,1 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  /* colors */
+  --primary-color: #2d3a4b;
+  --secondary-color: #1b3195;
+  --black: #000000;
+  --black-02: #1f2937;
+  --gray-blue: #8a94a6;
+  --white: #ffffff;
+  --red: #e74c3c;
+  --blue: #4a6cf7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+  border: none;
+  position: relative;
+  line-height: 1.2em;
+  letter-spacing: 0px;
+  user-select: none;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body,
+html {
+  width: 100%;
+  min-width: 320px;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0;
+  color: var(--primary-color);
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+
+
+
+
+
+.form-group {
+  margin-bottom: 1.25em;
+
+  label {
+    display: block;
+    font-size: 0.8125em;
+    margin-bottom: 0.461em;
+    color: var(--primary-color);
+  }
+
+  input {
+    width: 100%;
+    padding: 0.714em 0.8571em;
+    border: 1px solid #d7dce2;
+    border-radius: 6px;
+    font-size: 0.875em;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+  }
+
+  .error {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    position: absolute;
+    bottom: -1.125rem;
+    left: 0;
+    width: 100%;
+  }
+}

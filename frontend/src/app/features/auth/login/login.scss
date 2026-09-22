@@ -7,15 +7,15 @@
 }
 
 .login-card {
-  background: #fff;
-  padding: 40px;
+  background: var(--white);
+  padding: 2.5em;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  width: 320px;
+  width: 370px;
 
   h1 {
     margin: 0;
-    color: #2d3a4b;
+    color: var(--primary-color);
   }
 
   .subtitle {
@@ -25,41 +25,11 @@
   }
 }
 
-.form-group {
-  margin-bottom: 16px;
 
-  label {
-    display: block;
-    font-size: 13px;
-    margin-bottom: 6px;
-    color: #2d3a4b;
-  }
-
-  input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d7dce2;
-    border-radius: 6px;
-    font-size: 14px;
-    box-sizing: border-box;
-
-    &:focus {
-      outline: none;
-      border-color: #4a6cf7;
-    }
-  }
-
-  .error {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: 4px;
-    display: block;
-  }
-}
 
 .server-error {
   background: #fdecea;
-  color: #e74c3c;
+  color: var(--red);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 13px;
@@ -70,7 +40,7 @@ button {
   width: 100%;
   padding: 10px;
   background: #4a6cf7;
-  color: #fff;
+  color: var(--white);
   border: none;
   border-radius: 6px;
   font-size: 14px;
