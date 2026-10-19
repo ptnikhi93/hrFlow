@@ -28,6 +28,7 @@ export class Sidebar {
     { label: 'Projects', icon: 'fa-folder', link: '/projects' },
     { label: 'Tickets', icon: 'fa-ticket-simple', link: '/tickets' },
     { label: 'Reports', icon: 'fa-chart-column', link: '/reports' , roles: ['admin', 'hr']},
+    { label: 'My Profile', icon: 'fa-user', link: '/profile', roles: ['hr', 'employee'] },
   ];
 
    navItems = this.allItems.filter(

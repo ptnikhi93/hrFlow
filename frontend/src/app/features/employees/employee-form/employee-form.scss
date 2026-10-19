@@ -1,0 +1,137 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    color: #1f2937;
+  }
+
+  .back {
+    color: #4a6cf7;
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.muted {
+  color: #8a94a6;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+//   max-width: 820px;
+
+  h3 {
+    margin: 24px 0 12px;
+    color: #1f2937;
+    font-size: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eef0f3;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  &.full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #2d3a4b;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d7dce2;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: inherit;
+    background: #fff;
+
+    &:focus {
+      outline: none;
+      border-color: #4a6cf7;
+    }
+  }
+
+  .error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+  }
+}
+
+.server-error {
+  background: #fdecea;
+  color: #e74c3c;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-primary {
+  background: #4a6cf7;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: #3b5ae0;
+  }
+
+  &:disabled {
+    background: #a9b4d0;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+
+  &:hover {
+    background: #e5e7eb;
+  }
+}

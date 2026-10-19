@@ -1,0 +1,118 @@
+<div class="page-header">
+  <h1>{{ isEdit ? 'Edit Employee' : 'Add Employee' }}</h1>
+  <a routerLink="/employees" class="back">← Back to list</a>
+</div>
+
+@if (loading()) {
+  <p class="muted">Loading...</p>
+} @else {
+  <form class="form-card rows" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <h3>Login details</h3>
+    <div class="grid">
+      <div class="form-group">
+        <label>Full name *</label>
+        <input type="text" formControlName="name" />
+        @if (form.controls.name.invalid && form.controls.name.touched) {
+          <span class="error">Name is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" formControlName="email" />
+        @if (form.controls.email.invalid && form.controls.email.touched) {
+          <span class="error">Enter a valid email</span>
+        }
+      </div>
+
+      @if (!isEdit) {
+        <div class="form-group">
+          <label>Password *</label>
+          <input type="password" formControlName="password" />
+          @if (form.controls.password.invalid && form.controls.password.touched) {
+            <span class="error">Password must be at least 6 characters</span>
+          }
+        </div>
+      }
+
+      @if (isAdmin) {
+        <div class="form-group">
+          <label>Role</label>
+          <select formControlName="role">
+            <option value="employee">Employee</option>
+            <option value="hr">HR</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      }
+    </div>
+
+    <h3>Job details</h3>
+    <div class="grid">
+      <div class="form-group">
+        <label>Department</label>
+        <input type="text" formControlName="department" />
+      </div>
+
+      <div class="form-group">
+        <label>Designation</label>
+        <input type="text" formControlName="designation" />
+      </div>
+
+      <div class="form-group">
+        <label>Date of joining</label>
+        <input type="date" formControlName="dateOfJoining" />
+      </div>
+
+      @if (isEdit) {
+        <div class="form-group">
+          <label>Status</label>
+          <select formControlName="status">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      }
+    </div>
+
+    <h3>Personal details</h3>
+    <div class="grid">
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="text" formControlName="phone" />
+      </div>
+
+      <div class="form-group">
+        <label>Date of birth</label>
+        <input type="date" formControlName="dateOfBirth" />
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <select formControlName="gender">
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label>Address</label>
+        <textarea rows="3" formControlName="address"></textarea>
+      </div>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="server-error">{{ errorMessage() }}</div>
+    }
+
+    <div class="actions">
+      <a routerLink="/employees" class="btn-secondary">Cancel</a>
+      <button type="submit" class="btn-primary" [disabled]="saving()">
+        {{ saving() ? 'Saving...' : (isEdit ? 'Update Employee' : 'Create Employee') }}
+      </button>
+    </div>
+  </form>
+}

@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>Employee Profile</h1>
+  @if (canManage) {
+    <a routerLink="/employees" class="back">← Back to list</a>
+  }
+</div>
+
+@if (loading()) {
+  <p class="muted">Loading...</p>
+} @else if (errorMessage()) {
+  <div class="server-error">{{ errorMessage() }}</div>
+} @else if (employee(); as emp) {
+  <div class="profile-card">
+    <div class="profile-top">
+      <div class="avatar">{{ emp.user.name.charAt(0).toUpperCase() }}</div>
+      <div class="identity">
+        <h2>{{ emp.user.name }}</h2>
+        <p>{{ emp.designation || 'No designation' }}</p>
+        <span class="badge" [class.active]="emp.status === 'active'" [class.inactive]="emp.status === 'inactive'">
+          {{ emp.status }}
+        </span>
+      </div>
+      @if (canManage) {
+        <a [routerLink]="['/employees', emp.id, 'edit']" class="btn-primary">Edit</a>
+      }
+    </div>
+
+    <div class="details">
+      <div class="item"><span class="label">Employee code</span><span>{{ emp.employeeCode }}</span></div>
+      <div class="item"><span class="label">Email</span><span>{{ emp.user.email }}</span></div>
+      <div class="item"><span class="label">Role</span><span class="cap">{{ emp.user.role }}</span></div>
+      <div class="item"><span class="label">Phone</span><span>{{ emp.phone || '-' }}</span></div>
+      <div class="item"><span class="label">Department</span><span>{{ emp.department || '-' }}</span></div>
+      <div class="item">
+        <span class="label">Date of joining</span>
+        <span>{{ emp.dateOfJoining ? (emp.dateOfJoining | date: 'dd MMM yyyy') : '-' }}</span>
+      </div>
+      <div class="item">
+        <span class="label">Date of birth</span>
+        <span>{{ emp.dateOfBirth ? (emp.dateOfBirth | date: 'dd MMM yyyy') : '-' }}</span>
+      </div>
+      <div class="item"><span class="label">Gender</span><span class="cap">{{ emp.gender || '-' }}</span></div>
+      <div class="item full"><span class="label">Address</span><span>{{ emp.address || '-' }}</span></div>
+    </div>
+  </div>
+}

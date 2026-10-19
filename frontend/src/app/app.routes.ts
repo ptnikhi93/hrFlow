@@ -19,12 +19,38 @@ export const routes: Routes = [
         loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
+        // Any logged-in user: shows their own employee profile
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/employees/employee-profile/employee-profile').then(m => m.EmployeeProfile)
+      },
+      {
         path: 'employees',
         canActivate: [roleGuard('admin', 'hr')],
-        loadComponent: () =>
-          import('./features/employees/employee-list/employee-list').then(m => m.EmployeeList)
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/employees/employee-list/employee-list').then(m => m.EmployeeList)
+          },
+          {
+            path: 'new',
+            loadComponent: () =>
+              import('./features/employees/employee-form/employee-form').then(m => m.EmployeeForm)
+          },
+          {
+            path: ':id/edit',
+            loadComponent: () =>
+              import('./features/employees/employee-form/employee-form').then(m => m.EmployeeForm)
+          },
+          {
+            path: ':id',
+            loadComponent: () =>
+              import('./features/employees/employee-profile/employee-profile').then(m => m.EmployeeProfile)
+          }
+        ]
       }
-      // Add Employee, Edit Employee and Profile routes come in Part 2
+      // Attendance, Leave, Projects, etc. get added here in future steps
     ]
   }
 ];
