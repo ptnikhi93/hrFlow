@@ -1,0 +1,70 @@
+<div class="page-header">
+  <div>
+    <h1>Employees</h1>
+    <p class="subtitle">Manage your team members</p>
+  </div>
+  <a routerLink="/employees/new" class="btn-primary">+ Add Employee</a>
+</div>
+
+<div class="filters">
+  <input
+    type="text"
+    [formControl]="searchControl"
+    placeholder="Search by name, email or code..."
+  />
+  <select [formControl]="statusControl">
+    <option value="">All statuses</option>
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+  </select>
+</div>
+
+@if (errorMessage()) {
+  <div class="server-error">{{ errorMessage() }}</div>
+}
+
+<div class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Status</th>
+        <th class="actions-col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (loading()) {
+        <tr><td colspan="6" class="empty">Loading...</td></tr>
+      } @else if (employees().length === 0) {
+        <tr><td colspan="6" class="empty">No employees found</td></tr>
+      } @else {
+        @for (emp of employees(); track emp.id) {
+          <tr>
+            <td>{{ emp.employeeCode }}</td>
+            <td>
+              <div class="name">{{ emp.user.name }}</div>
+              <div class="email">{{ emp.user.email }}</div>
+            </td>
+            <td>{{ emp.department || '-' }}</td>
+            <td>{{ emp.designation || '-' }}</td>
+            <td>
+              <span class="badge" [class.active]="emp.status === 'active'" [class.inactive]="emp.status === 'inactive'">
+                {{ emp.status }}
+              </span>
+            </td>
+            <td class="actions-col">
+              <a [routerLink]="['/employees', emp.id]" class="link">View</a>
+              <a [routerLink]="['/employees', emp.id, 'edit']" class="link">Edit</a>
+              @if (emp.status === 'active') {
+                <button class="link danger" (click)="deactivate(emp)">Deactivate</button>
+              }
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
