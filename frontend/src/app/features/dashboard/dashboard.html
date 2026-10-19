@@ -1,2 +1,56 @@
 <h1>Welcome, {{ user?.name }} 👋</h1>
-<p>This is your HRFlow dashboard. Modules will appear here as we build them.</p>
+<p class="subtitle">Here's your day at a glance.</p>
+
+@if (showCard) {
+  <div class="attendance-card">
+    <div class="card-head">
+      <div>
+        <h3>Today's Attendance</h3>
+        <p class="date">{{ now | date: 'EEEE, dd MMM yyyy' }}</p>
+      </div>
+      <a routerLink="/attendance" class="link">View my attendance →</a>
+    </div>
+
+    @if (loading()) {
+      <p class="muted">Loading...</p>
+    } @else {
+      @if (today(); as a) {
+        <div class="times">
+          <div class="time-box">
+            <span class="label">Check in</span>
+            <strong>{{ a.checkIn | date: 'hh:mm a' }}</strong>
+          </div>
+          <div class="time-box">
+            <span class="label">Check out</span>
+            <strong>{{ a.checkOut ? (a.checkOut | date: 'hh:mm a') : '--' }}</strong>
+          </div>
+          @if (a.checkOut) {
+            <div class="time-box">
+              <span class="label">Work hours</span>
+              <strong>{{ workHoursText() }}</strong>
+            </div>
+          }
+        </div>
+
+        @if (!a.checkOut) {
+          <button class="btn-out" (click)="checkOut()" [disabled]="acting()">
+            {{ acting() ? 'Please wait...' : 'Check Out' }}
+          </button>
+        } @else {
+          <p class="done">
+            ✅ You're done for today ({{ a.status === 'half_day' ? 'Half day' : 'Present' }})
+          </p>
+        }
+      } @else {
+        <p class="muted">You haven't checked in yet today.</p>
+        <button class="btn-in" (click)="checkIn()" [disabled]="acting()">
+          {{ acting() ? 'Please wait...' : 'Check In' }}
+        </button>
+      }
+    }
+
+    @if (errorMessage()) {
+      <div class="server-error">{{ errorMessage() }}</div>
+    }
+  </div>
+}

@@ -1,0 +1,59 @@
+<div class="page-header">
+  <div>
+    <h1>My Attendance</h1>
+    <p class="subtitle">Your check-in history</p>
+  </div>
+  <input type="month" [formControl]="monthControl" />
+</div>
+
+@if (errorMessage()) {
+  <div class="server-error">{{ errorMessage() }}</div>
+}
+
+<div class="summary">
+  <div class="stat">
+    <span class="label">Present days</span>
+    <strong>{{ summary().presentDays }}</strong>
+  </div>
+  <div class="stat">
+    <span class="label">Half days</span>
+    <strong>{{ summary().halfDays }}</strong>
+  </div>
+  <div class="stat">
+    <span class="label">Total hours</span>
+    <strong>{{ summary().totalWorkHours }}</strong>
+  </div>
+</div>
+
+<div class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Check in</th>
+        <th>Check out</th>
+        <th>Hours</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (loading()) {
+        <tr><td colspan="5" class="empty">Loading...</td></tr>
+      } @else if (records().length === 0) {
+        <tr><td colspan="5" class="empty">No attendance records for this month</td></tr>
+      } @else {
+        @for (r of records(); track r.id) {
+          <tr>
+            <td>{{ r.date | date: 'EEE, dd MMM' }}</td>
+            <td>{{ r.checkIn ? (r.checkIn | date: 'hh:mm a') : '-' }}</td>
+            <td>{{ r.checkOut ? (r.checkOut | date: 'hh:mm a') : '-' }}</td>
+            <td>{{ r.workHours || '-' }}</td>
+            <td>
+              <span class="badge" [class]="r.status">{{ statusLabel(r.status) }}</span>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

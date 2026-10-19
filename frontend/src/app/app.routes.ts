@@ -19,10 +19,14 @@ export const routes: Routes = [
         loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
-        // Any logged-in user: shows their own employee profile
         path: 'profile',
         loadComponent: () =>
           import('./features/employees/employee-profile/employee-profile').then(m => m.EmployeeProfile)
+      },
+      {
+        path: 'attendance',
+        loadComponent: () =>
+          import('./features/attendance/my-attendance/my-attendance').then(m => m.MyAttendance)
       },
       {
         path: 'employees',
@@ -50,7 +54,7 @@ export const routes: Routes = [
           }
         ]
       }
-      // Attendance, Leave, Projects, etc. get added here in future steps
+      // Leave, Projects, Tickets, etc. get added here in future steps
     ]
   }
 ];
